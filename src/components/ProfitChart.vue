@@ -28,28 +28,29 @@ const chartData = computed(() => ({
             data: cog.value, //コスト
         },
     ],
-    options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        legend:{
-            display:false,
-        },
-        scales: { 
-            yAxes: [{
-                ticks: {
-                    min:-600,
-                    max:1000,
-                    //beginAtZero: false,
-                    stepSize: 200,
-                    //maxTicksLimit:12
-                }
-            }]
-        },
-    },
 }))
+
+const options = ref({
+    responsive: true,
+    maintainAspectRatio: true,
+    legend:{
+        display:false,
+    },
+    scales: { 
+        yAxes: [{
+            ticks: {
+                min:-600,
+                max:1000,
+                //beginAtZero: false,
+                stepSize: 200,
+                //maxTicksLimit:12
+            }
+        }]
+    },
+})
 
 </script>
 
 <template>
-    <BarChart ref="barRef" :chartData="chartData" />
+    <BarChart ref="barRef" :chartData="chartData" :options="options" />
 </template>
