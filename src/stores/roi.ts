@@ -5,11 +5,11 @@ import { defineStore } from 'pinia'
 export const useStore = defineStore('roi', {
     //初期値
     state: () => ({
-        data: [10,5,0,0,0],
+        roi: [10,5,0,0,0],
     }),
     actions: { //methodsと同じ
       update() {
-        this.data = [5,5,5,5,5];
+        this.roi = [5,5,5,5,5];
       },
     },
 })

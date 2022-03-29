@@ -10,7 +10,7 @@ Chart.register(...registerables); //chart.jsのおまじない
 Chart.register(annotationPlugin);
 
 const store = useStore() //グラフデータをstoresから読み込み
-const { data } = storeToRefs(store) //refに変換
+const { roi } = storeToRefs(store) //refに変換
 
 const barRef = ref();　//chart.jsのおまじない
 const testData = computed(() => ({
@@ -18,7 +18,7 @@ const testData = computed(() => ({
   datasets: [
     {
       label: '利益(全体)',
-      data: data.value, //storesから取得したデータをここに放り込む
+      data: roi.value, //storesから取得したデータをここに放り込む
     },
   ],
 }));
@@ -46,7 +46,4 @@ const options = ref({
 
 <template>
   <BarChart ref="barRef" :chartData="testData" :options="options" />
-  <p>{{data}}</p>
-  <button @click="store.update()">あああ</button>
-
 </template>

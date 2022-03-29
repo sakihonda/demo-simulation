@@ -17,14 +17,18 @@ const chartData = computed(() => ({
     datasets: [
         {
             type: 'line',
+            label: '利益',
             data: profit.value, //利益
             borderColor:'#77A3BD',
+            backgroundColor: '#77A3BD'
         },
         {
+            label: '売上',
             data: revenue.value, //売上
             backgroundColor:'#D5E4ED'
         },
         {
+            label: 'コスト',
             data: cog.value, //コスト
         },
     ],
