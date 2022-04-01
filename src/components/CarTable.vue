@@ -1,35 +1,78 @@
 <script setup lang="ts">
-//import { ref } from "vue";
-import { useStore } from '../stores/roi';
-import { useCars } from '../stores/cars';
-import { useProfit } from '../stores/profit';
+import { onMounted } from "vue";
+//import { useStore } from '../stores/roi';
+
+//import { useProfit } from '../stores/profit';
 import { storeToRefs } from "pinia";
-import CarProfitChart from '../components/CarProfitChart.vue'
+import CarProfitChart from '../charts/CarProfitChart.vue'
+
+//stores
+import { useCars } from '../stores/cars'
+import { useCostDefaults } from '../stores/costDefaults'
 
 //carsのデータ
 const storeCars = useCars()
 const { cars }  = storeToRefs(storeCars)
 
+//costDefaultsのデータ
+const { calcCostMaterial, calcCostProduction, calcCostInvestment, calcCostDevelopment, calcCostSales } = storeToRefs(useCostDefaults())
+
+
 //roiのデータ
-let { roi } = storeToRefs(useStore())
+//let { roi } = storeToRefs(useStore())
 
 //profit,revenue,cogのデータ
-let { revenue, cog, profit } = storeToRefs(useProfit())
+//let { revenue, cog, profit } = storeToRefs(useProfit())
 
-//3点いずれか変更したら走るよ
-function calc_rieki(car) {
-  if(car.sell){
-    car.rieki = 400000
-    roi.value = [1,2,3,4,5]
-    revenue.value = [0,0,0,0,0]
+const setCog = function(car): void {
+  car.cog.material = calcCostMaterial.value(car.product.length, car.carNum)
+  car.cog.production = calcCostProduction.value(car.carNum)
+}
+
+const setInitialCostsStatic = function(car): void {
+  car.initialCosts.sales = calcCostSales.value(car.sales.days)
+}
+
+const setInitialCostsDynamic = function(car): void {
+  car.initialCosts.investment = calcCostInvestment.value(car.product.length, car.product.quality, car.carNum)
+  car.initialCosts.development = calcCostDevelopment.value(car.carNum)
+}
+
+//売るか売らないか
+const changeSell = function(car): void {
+  //console.log(car.carNum)
+  if (car.sell){
+    setCog(car)
+    setInitialCostsStatic(car)
+
   }else{
-    car.rieki = 0
-    roi.value = [5,4,3,2,1]
+    car.cog.material = 0
+    car.cog.production = 0
+    car.initialCosts.sales = 0
+  }
+  for (let i=0; i < cars.value.length; i++){
+    setInitialCostsDynamic(cars.value[i])
   }
 }
+
+const changeProduct = function(car){
+  for (let i=0; i < cars.value.length; i++){
+    setInitialCostsDynamic(cars.value[i])
+  }
+}
+
+onMounted(() => {
+  for (let i=0; i < cars.value.length; i++){
+    setCog(cars.value[i])
+    setInitialCostsStatic(cars.value[i])
+    setInitialCostsDynamic(cars.value[i])
+  }
+})
+
 </script>
 
 <template>
+{{cars[0].cog.material}}
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -42,12 +85,13 @@ function calc_rieki(car) {
         <th>タイプ</th>
         <th>車種</th>
         <th>生産台数</th>
+        <th>営業日数</th>
         <th>取引実績</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="car in cars" 
-          :key="car.id" 
+      <tr v-for="car in cars"
+          :key="car.id"
           :class="{gray: !car.sell}">
 
         <td>{{ car.id }}</td>
@@ -55,38 +99,38 @@ function calc_rieki(car) {
         <td> 
           <input type="checkbox" id="checkbox"
             v-model="car.sell"
-            @change="calc_rieki(car)"
+            @change="changeSell(car)"
           />
         </td>
         <td>
           <p>
             <select 
-              v-model="car.product_quality"
-              @change="calc_rieki(car)"
+              v-model="car.product.quality"
+              @change="changeProduct(car)"
             >
               <option>プレミアム</option>
               <option>標準</option>
             </select>
           </p>
-          <p>{{ car.product_length }}cm</p>
+          <p>{{ car.product.length }}cm</p>
         </td>
         <td>
           <input 
             type="number" 
             v-model="car.price"
-            @change="calc_rieki(car)"
           />
         </td>
         <td style="width: 100px; height: 100px;">
           <CarProfitChart :profit="car.rieki"></CarProfitChart>
         </td>
 
-        <td>{{car.name}}</td>
-        <td>{{ car.companyType }}</td>
-        <td>{{ car.carType }}</td>
+        <td>{{car.profile.name}}</td>
+        <td>{{ car.profile.companyType }}</td>
+        <td>{{ car.profile.carType }}</td>
         <td>{{car.carNum}}</td>
+        <td>{{ car.sales.days }}</td>
         <td>
-          <span v-if="car.record">◯</span>
+          <span v-if="car.sales.record">◯</span>
           <span v-else></span>
         </td>
       </tr>

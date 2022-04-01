@@ -9,107 +9,89 @@ export const useCars = defineStore('cars', {
             {
                 id:1,
                 sell:true,
-                name:'T社',
-                companyType: '一般車',
-                carType: 'コンパクトカー',
-                carNum: 150000,
-                record: true,
-                product_length: 100,
-                product_quality: '標準',
                 price:50000,
-                rieki:-300000,
-            },
-            {
-                id:2,
-                sell:true,
-                name:'T社',
-                companyType: '一般車',
-                carType: 'SUV',
-                carNum: 50000,
-                record: true,
-                product_length: 150,
-                product_quality: '標準',
-                price:50000,
-                rieki:300000,
-            },
-            {
-                id:3,
-                sell:true,
-                name:'B社',
-                companyType: '高級車',
-                carType: 'セダン',
-                carNum: 100000,
-                record: false,
-                product_length: 100,
-                product_quality: '標準',
-                price:50000,
-                rieki:300000,
-            },
-            {
-                id:4,
-                sell:true,
-                name:'B社',
-                companyType: '高級車',
-                carType: 'SUV',
-                carNum: 50000,
-                record: true,
-                product_length: 150,
-                product_quality: '標準',
-                price:50000,
-                rieki:300000,
-            },
-            {
-                id:5,
-                sell:true,
-                name:'N社',
-                companyType: '一般車',
-                carType: 'ミニバン',
-                carNum: 200000,
-                record: false,
-                product_length: 150,
-                product_quality: '標準',
-                price:50000,
-                rieki:300000,
-            },
-            {
-                id:6,
-                sell:true,
-                name:'N社',
-                companyType: '一般車',
-                carType: 'コンパクトカー',
-                carNum: 300000,
-                record: false,
-                product_length: 100,
-                product_quality: '標準',
-                price:50000,
-                rieki:300000,
-            },
-            {
-                id:7,
-                sell:true,
-                name:'V社',
-                companyType: '高級車',
-                carType: 'セダン',
-                carNum: 50000,
-                record: true,
-                product_length: 100,
-                product_quality: '標準',
-                price:50000,
-                rieki:300000,
-            },
-            {
-                id:8,
-                sell:true,
-                name:'V社',
-                companyType: '高級車',
-                carType: 'SUV',
-                carNum: 70000,
-                record: true,
-                product_length: 150,
-                product_quality: '標準',
-                price:50000,
-                rieki:300000,
+                get carNum(){
+                    if (this.sell){
+                        return 150000
+                    }else{
+                        return 0
+                    }
+                },
+                profile:{
+                    name:'T社',
+                    companyType: '一般車',
+                    carType: 'コンパクトカー',
+                },
+                product:{
+                    length: 100,
+                    quality: '標準'
+                },
+                sales: {
+                    record: true,
+                    days: 50,
+                },
+                initialCosts: {
+                    investment: 0,
+                    development: 0,
+                    sales: 0,
+                },
+                cog: {
+                    material: 0,
+                    production: 0,
+                },
+                get initialCostsTotal(){
+                    let sum: number = 0
+                    for(let cost in this.initialCosts){
+                        sum = sum + this.initialCosts[cost]
+                    }
+                    return sum
+                },
+                get cogTotal(){
+                    let sum: number = 0
+                    for(let cost in this.cog){
+                        sum = sum + this.cog[cost]
+                    }
+                    return sum
+                },
+                get uriage(){
+                    const uriage = this.price * this.carNum
+                   return uriage
+               },
+                get rieki(){
+                    const rieki = this.uriage - this.initialCostsTotal - this.cogTotal
+                    return rieki
+                }
             },
         ],
     }),
+    getters: {
+        carNumRatioI: (state) => {
+            function f(length: number, quality: string, carNum: number){
+                const cars = state.cars.filter(car => car.product.length == length && car.product.quality == quality)
+                const numSum = cars.reduce(function(sum, car){
+                    return sum + (car.carNum)
+                },0)
+                let ratio: number = 0
+                if (numSum != 0){
+                    ratio = carNum / numSum
+                }
+                return ratio
+            }
+            return f
+        },
+        carNumRatioD: (state) => {
+            function f(prop: string, filterValue: any, carNum: number):number {
+                const cars = state.cars.filter(car => car[prop] == filterValue)
+                const numSum = cars.reduce(function(sum, car){
+                    return sum + (car.carNum)
+                }, 0)
+                let ratio: number = 0
+                if (numSum != 0){
+                    ratio = carNum / numSum
+                }
+                return ratio
+            }
+            return f
+        },
+    },
 })
