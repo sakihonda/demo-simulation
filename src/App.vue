@@ -5,8 +5,8 @@
 //import HomeChart from './components/HomeChart.vue';
 
 import CarTable from './components/CarTable.vue';
-import RoiChart from './components/RoiChart.vue';
-import ProfitChart from './components/ProfitChart.vue';
+import RoiChart from './charts/RoiChart.vue';
+import ProfitChart from './charts/ProfitChart.vue';
 </script>
 
 <template>
