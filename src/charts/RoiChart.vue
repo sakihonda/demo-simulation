@@ -11,7 +11,7 @@ Chart.register(...registerables); //chart.jsのおまじない
 Chart.register(annotationPlugin);
 
 const store = useDataAll() //グラフデータをstoresから読み込み
-const { initialCostsAll, riekiAll, carNumAllRatio,aaa} = storeToRefs(store) //refに変換
+const { initialCostsAll, riekiAll, carNumAllRatio} = storeToRefs(store) //refに変換
 
 const barRef = ref();　//chart.jsのおまじない
 
@@ -46,22 +46,20 @@ const options = ref({
         suggestedMax: 103000000
     }
   },
-  plugins: {
-    annotation: { 
-      annotations: { 
-        line1: {
-          drawtime: 'beforeDatasetsDraw',
-          type: 'line', // 線を描画
-          //yMin: initialCostsAll.value,
-          //yMax: initialCostsAll.value,
-          yMin: aaa.value,
-          yMax: aaa.value,
-          borderWidth: 2, // 基準線の太さ
-          borderColor: '#77A3BD',  // 基準線の色
-        }
-      }
-    },
-  }
+  // plugins: {
+  //   annotation: { 
+  //     annotations: { 
+  //       line1: {
+  //         drawtime: 'beforeDatasetsDraw',
+  //         type: 'line', // 線を描画
+  //         yMin: 60, 
+  //         yMax: 60,
+  //         borderWidth: 2, // 基準線の太さ
+  //         borderColor: '#77A3BD',  // 基準線の色
+  //       }
+  //     }
+  //   },
+  // }
 })
 
 </script>

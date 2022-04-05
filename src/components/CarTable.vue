@@ -62,6 +62,7 @@ const changeProduct = function(car){
 }
 
 onMounted(() => {
+  storeCars.getCars()
   for (let i=0; i < cars.value.length; i++){
     setCog(cars.value[i])
     setInitialCostsStatic(cars.value[i])
@@ -72,7 +73,6 @@ onMounted(() => {
 </script>
 
 <template>
-{{cars[0].cog.material}}
   <table class="table table-bordered">
     <thead>
       <tr>
