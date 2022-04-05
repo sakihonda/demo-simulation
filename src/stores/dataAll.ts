@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 import { useCars } from "./cars";
 
-export const useStore = defineStore('roi', {
+export const useDataAll = defineStore('dataAll', {
     //初期値
     state: () => ({
+        aaa : 10000000,
         get uriageAll(){
           const storeCars = useCars()
           const ttl = storeCars.cars.reduce(function(sum, car){
@@ -18,6 +19,7 @@ export const useStore = defineStore('roi', {
           }, 0)
           return ttl
         },
+        //これだけトータルでOK
         get initialCostsAll(){
           const storeCars = useCars()
           const ttl = storeCars.cars.reduce(function(sum, car){
@@ -30,9 +32,19 @@ export const useStore = defineStore('roi', {
           return ttl
         },
     }),
-    // actions: { //methodsと同じ
-    //   update() {
-    //     this.roi = [5,5,5,5,5];
-    //   },
-    // },
+    getters: {
+      carNumAllRatio: () =>{
+        const storeCars = useCars()
+        const arr = [0,0,0,0,0]
+        storeCars.cars.map(function(car){
+          for (let i in arr){
+            arr[i] = arr[i] + car.carNumPerYear[i]
+          }
+        })
+        const arr2 = arr.map(function(value){
+          return value / storeCars.carNumAll
+        })
+        return arr2
+      },
+    }
 })

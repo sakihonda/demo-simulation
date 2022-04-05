@@ -9,13 +9,19 @@ export const useCars = defineStore('cars', {
             {
                 id:1,
                 sell:true,
-                price:50000,
-                get carNum(){
+                price:5000,
+                get carNumPerYear (){
                     if (this.sell){
-                        return 150000
+                        return [10000, 20000, 30000, 10000, 80000]
                     }else{
-                        return 0
+                        return [0,0,0,0,0]
                     }
+                },
+                 get carNum(){
+                    const ttl = this.carNumPerYear.reduce(function(sum,element){
+                        return sum + element
+                    },0)
+                    return ttl
                 },
                 profile:{
                     name:'T社',
@@ -65,15 +71,18 @@ export const useCars = defineStore('cars', {
         ],
     }),
     getters: {
+        carNumAll: (state) =>{
+            const numSum = state.cars.reduce(function(sum, car){
+                return sum + (car.carNum)
+            },0)
+            return numSum
+        },
         carNumRatioI: (state) => {
             function f(length: number, quality: string, carNum: number){
                 const cars = state.cars.filter(car => car.product.length == length && car.product.quality == quality)
-                const numSum = cars.reduce(function(sum, car){
-                    return sum + (car.carNum)
-                },0)
                 let ratio: number = 0
-                if (numSum != 0){
-                    ratio = carNum / numSum
+                if (this.carNumAll != 0){
+                    ratio = carNum / this.carNumAll
                 }
                 return ratio
             }
@@ -82,12 +91,9 @@ export const useCars = defineStore('cars', {
         carNumRatioD: (state) => {
             function f(prop: string, filterValue: any, carNum: number):number {
                 const cars = state.cars.filter(car => car[prop] == filterValue)
-                const numSum = cars.reduce(function(sum, car){
-                    return sum + (car.carNum)
-                }, 0)
                 let ratio: number = 0
-                if (numSum != 0){
-                    ratio = carNum / numSum
+                if (this.carNumAll != 0){
+                    ratio = carNum / this.carNumAll
                 }
                 return ratio
             }

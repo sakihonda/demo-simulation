@@ -5,8 +5,8 @@ export const useCostDefaults = defineStore('costDefaults',{
   state: () => ({
     cog: {
       materials: {
-        glassPrice: 10,
-        softwarePrice: 50,
+        glassPrice: 40,
+        softwarePrice: 80,
       },
       productions: {
         glassPrice: 100,
