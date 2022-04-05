@@ -1,28 +1,23 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-//import HelloWorld from './components/HelloWorld.vue'
-//import HomeChart from './components/HomeChart.vue';
-
 import CarTable from './components/CarTable.vue';
 import RoiChart from './charts/RoiChart.vue';
 import ProfitChart from './charts/ProfitChart.vue';
 </script>
 
 <template>
-<b-container fluid>
-  <b-row>
-    <b-col cols="6">
-      <CarTable></CarTable>
-    </b-col>
-    <b-col cols="3">
-      <RoiChart></RoiChart>
-    </b-col>
-    <b-col cols="3">
-      <ProfitChart></ProfitChart>
-    </b-col>
-  </b-row>
-</b-container>
+  <b-container fluid>
+    <b-row>
+      <b-col cols="6">
+        <CarTable></CarTable>
+      </b-col>
+      <b-col cols="3">
+        <RoiChart></RoiChart>
+      </b-col>
+      <b-col cols="3">
+        <ProfitChart></ProfitChart>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <style>

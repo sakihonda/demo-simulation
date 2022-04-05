@@ -2,15 +2,15 @@
 import { Chart, registerables } from 'chart.js';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
-import { useProfit } from '../stores/profit';
+import { useDataAll } from '../stores/dataAll';
 import { BarChart } from 'vue-chart-3';
+import { calcChartData } from '../use/calcChart'
 
 
 Chart.register(...registerables);
 const barRef = ref();
 
-const profitStore = useProfit()
-const { revenue, cog, profit } = storeToRefs(profitStore)
+const { uriageAll, cogAll, riekiAll, carNumAllRatio} = storeToRefs(useDataAll())
 
 const chartData = computed(() => ({
     labels: ['20X1', '20X2', '20X3', '20X4', '20X5'],
@@ -18,25 +18,25 @@ const chartData = computed(() => ({
         {
             type: 'line',
             label: '利益',
-            data: profit.value, //利益
+            data: calcChartData(riekiAll.value, carNumAllRatio.value), //利益
             borderColor:'#77A3BD',
             backgroundColor: '#77A3BD'
         },
         {
             label: '売上',
-            data: revenue.value, //売上
+            data: calcChartData(uriageAll.value, carNumAllRatio.value), //売上
             backgroundColor:'#D5E4ED'
         },
         {
             label: 'コスト',
-            data: cog.value, //コスト
+            data: calcChartData(cogAll.value, carNumAllRatio.value), //コスト
         },
     ],
 }))
 
 const options = ref({
-    responsive: true,
-    maintainAspectRatio: true,
+    //responsive: true,
+    //maintainAspectRatio: true,
     legend:{
         display:false,
     },
@@ -46,4 +46,7 @@ const options = ref({
 
 <template>
     <BarChart ref="barRef" :chartData="chartData" :options="options" />
+    <p>売上　{{calcChartData(uriageAll, carNumAllRatio)}}　</p>
+    <p>cog {{calcChartData(cogAll, carNumAllRatio)}}</p>
+    <p>利益　{{calcChartData(riekiAll, carNumAllRatio)}}　</p>
 </template>
