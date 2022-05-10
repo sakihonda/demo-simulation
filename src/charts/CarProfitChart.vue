@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import { BarChart } from 'vue-chart-3';
 import { Chart, registerables } from "chart.js";
 import annotationPlugin from 'chartjs-plugin-annotation';
+import { RoundNum } from '../use/calcChart'
 
 Chart.register(...registerables); //chart.jsのおまじない
 Chart.register(annotationPlugin);
@@ -30,7 +31,7 @@ const chartData = computed(() => ({
     datasets: [
     {
         label: '利益',
-        data: [props.profit], //storesから取得したデータをここに放り込む
+        data: [RoundNum(props.profit)], //storesから取得したデータをここに放り込む
         backgroundColor: bgColor()
     },
     ],
@@ -64,8 +65,8 @@ const options = ref({
     },
     scales: {
       x: {
-        min: -300000,
-        max: 300000,
+        min: -200000,
+        max: 200000,
         ticks: {
           display: false,
         },

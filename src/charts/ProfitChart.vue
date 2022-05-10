@@ -40,6 +40,15 @@ const options = ref({
     legend:{
         display:false,
     },
+    scales: {
+        // y: {
+        //     max: 90000000,
+        //     min: -150000000,
+        //     ticks: {
+        //         stepSize: 100000000,
+        //     }
+        // }
+    },
 })
 
 </script>
