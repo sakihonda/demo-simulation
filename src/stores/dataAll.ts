@@ -5,7 +5,7 @@ export const useDataAll = defineStore('dataAll', {
     //初期値
     state: () => ({
         aaa : 10000000,
-        get uriageAll(){
+        get uriageAll() :number{
           const storeCars = useCars()
           const ttl = storeCars.cars.reduce(function(sum, car){
             return sum + (car.uriage)
@@ -31,6 +31,10 @@ export const useDataAll = defineStore('dataAll', {
           const ttl = this.uriageAll - this.cogAll - this.initialCostsAll
           return ttl
         },
+        get roiAll(){
+          const roi = this.riekiAll / this.initialCostsAll
+          return roi
+        }
     }),
     getters: {
       carNumAllRatio: () =>{

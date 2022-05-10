@@ -28,7 +28,7 @@ const chartData = computed(() => ({
             backgroundColor:'#D5E4ED'
         },
         {
-            label: 'コスト',
+            label: '売上原価',
             data: calcChartData(cogAll.value, carNumAllRatio.value), //コスト
         },
     ],
@@ -54,6 +54,7 @@ const options = ref({
 </script>
 
 <template>
+    <p class="mb-0">売上高と売上原価</p>
     <BarChart ref="barRef" :chartData="chartData" :options="options" />
     <p>売上　{{calcChartData(uriageAll, carNumAllRatio)}}　</p>
     <p>cog {{calcChartData(cogAll, carNumAllRatio)}}</p>
