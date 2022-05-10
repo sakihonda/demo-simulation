@@ -80,7 +80,7 @@ onMounted(() => {
         <th>販売する</th>
         <th>商品</th>
         <th>価格</th>
-        <th>利益</th>
+        <th>利益(千)</th>
         <th>メーカー</th>
         <th>タイプ</th>
         <th>車種</th>
@@ -116,7 +116,8 @@ onMounted(() => {
         </td>
         <td>
           <input 
-            type="number" 
+            type="number"
+            step="1000"
             v-model="car.price"
           />
         </td>
@@ -127,7 +128,7 @@ onMounted(() => {
         <td>{{car.profile.name}}</td>
         <td>{{ car.profile.companyType }}</td>
         <td>{{ car.profile.carType }}</td>
-        <td>{{car.carNum}}</td>
+        <td><span>{{car.carNum.toLocaleString()}}</span></td>
         <td>{{ car.sales.days }}</td>
         <td>
           <span v-if="car.sales.record">◯</span>
