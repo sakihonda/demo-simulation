@@ -66,6 +66,7 @@ const options = ref({
 </script>
 
 <template>
+  <p class="mb-0">投資対利益</p>
   <BarChart ref="barRef" :chartData="testData" :options="options" />
   <p>investment:   {{initialCostsAll.toLocaleString()}}</p>
   <p>利益：  {{calcChartData(riekiAll, carNumAllRatio)}}</p>

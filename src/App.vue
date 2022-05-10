@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import CarTable from './components/CarTable.vue';
+import CompareTable from './components/CompareTable.vue';
 import RoiChart from './charts/RoiChart.vue';
 import ProfitChart from './charts/ProfitChart.vue';
 </script>
@@ -10,11 +11,18 @@ import ProfitChart from './charts/ProfitChart.vue';
       <b-col cols="6">
         <CarTable></CarTable>
       </b-col>
-      <b-col cols="3">
-        <RoiChart></RoiChart>
-      </b-col>
-      <b-col cols="3">
-        <ProfitChart></ProfitChart>
+      <b-col cols="6">
+        <b-row>
+          <CompareTable></CompareTable>
+        </b-row>
+        <b-row>
+          <b-col cols="6">
+            <RoiChart></RoiChart>
+          </b-col>
+          <b-col cols="6">
+            <ProfitChart></ProfitChart>
+          </b-col>
+        </b-row>
       </b-col>
     </b-row>
   </b-container>

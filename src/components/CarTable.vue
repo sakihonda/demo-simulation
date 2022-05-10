@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-//import { useStore } from '../stores/roi';
-
-//import { useProfit } from '../stores/profit';
 import { storeToRefs } from "pinia";
+
 import CarProfitChart from '../charts/CarProfitChart.vue'
 
 //stores
 import { useCars } from '../stores/cars'
 import { useCostDefaults } from '../stores/costDefaults'
+//import { usePreviousDataAll } from "../stores/previousDataAll";
 
 //carsのデータ
 const storeCars = useCars()
@@ -17,12 +16,8 @@ const { cars }  = storeToRefs(storeCars)
 //costDefaultsのデータ
 const { calcCostMaterial, calcCostProduction, calcCostInvestment, calcCostDevelopment, calcCostSales } = storeToRefs(useCostDefaults())
 
-
-//roiのデータ
-//let { roi } = storeToRefs(useStore())
-
-//profit,revenue,cogのデータ
-//let { revenue, cog, profit } = storeToRefs(useProfit())
+//previous data
+//const storePreviousDataAll = usePreviousDataAll()
 
 const setCog = function(car): void {
   car.cog.material = calcCostMaterial.value(car.product.length, car.carNum)
@@ -38,9 +33,8 @@ const setInitialCostsDynamic = function(car): void {
   car.initialCosts.development = calcCostDevelopment.value(car.carNum)
 }
 
-//売るか売らないか
+//販売する checkbox
 const changeSell = function(car): void {
-  //console.log(car.carNum)
   if (car.sell){
     setCog(car)
     setInitialCostsStatic(car)
@@ -55,6 +49,7 @@ const changeSell = function(car): void {
   }
 }
 
+// 商品の種類 select box
 const changeProduct = function(car){
   for (let i=0; i < cars.value.length; i++){
     setInitialCostsDynamic(cars.value[i])
