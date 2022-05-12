@@ -50,7 +50,35 @@ const changeSell = function(car): void {
 }
 
 // 商品の種類 select box
-const changeProduct = function(car){
+// const changeProductOrPrice = function(car){
+//   for (let i=0; i < cars.value.length; i++){
+//     setInitialCostsDynamic(cars.value[i])
+//   }
+// }
+
+// 商品の価格 input box
+const changeProductOrPrice = function(car){
+  let priceLine: number
+  if (car.product.quality == '標準' && car.sales.record == true){
+    priceLine = 5000
+  }else if(car.product.quality == '標準' && car.sales.record == false){
+    priceLine = 4000
+  }else if(car.product.quality == 'プレミアム' && car.sales.record == true){
+    priceLine = 6000
+  }else if(car.product.quality == 'プレミアム' && car.sales.record == false){
+    priceLine = 5000
+  }
+
+  if (car.price < priceLine){
+    car.isProperPrice = true
+    setCog(car)
+    setInitialCostsStatic(car)
+  }else{
+    car.isProperPrice = false
+    car.cog.material = 0
+    car.cog.production = 0
+    car.initialCosts.sales = 0
+  }
   for (let i=0; i < cars.value.length; i++){
     setInitialCostsDynamic(cars.value[i])
   }
@@ -79,8 +107,8 @@ onMounted(() => {
         <th>メーカー</th>
         <th>タイプ</th>
         <th>車種</th>
-        <th>生産台数</th>
-        <th>営業日数</th>
+        <th>販売可能台数</th>
+        <th>営業工数</th>
         <th>取引実績</th>
       </tr>
     </thead>
@@ -101,7 +129,7 @@ onMounted(() => {
           <p>
             <select 
               v-model="car.product.quality"
-              @change="changeProduct(car)"
+              @change="changeProductOrPrice(car)"
             >
               <option>プレミアム</option>
               <option>標準</option>
@@ -112,8 +140,9 @@ onMounted(() => {
         <td>
           <input 
             type="number"
-            step="1000"
+            step="500"
             v-model="car.price"
+            @change="changeProductOrPrice(car)"
           />
         </td>
         <td style="width: 100px; height: 100px;">

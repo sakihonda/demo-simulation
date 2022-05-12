@@ -117,9 +117,10 @@ export const useCars = defineStore('cars', {
                 let car = {
                     id: i+1,
                     sell: true,
-                    price:5000,
+                    price:4000,
+                    isProperPrice: true,
                     get carNumPerYear (){
-                        if (this.sell){
+                        if (this.sell && this.isProperPrice){
                             return data[i].carNum
                         }else{
                             return [0,0,0,0,0]
