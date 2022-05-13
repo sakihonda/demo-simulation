@@ -20,7 +20,7 @@ const { calcCostMaterial, calcCostProduction, calcCostInvestment, calcCostDevelo
 //const storePreviousDataAll = usePreviousDataAll()
 
 const setCog = function(car): void {
-  car.cog.material = calcCostMaterial.value(car.product.length, car.carNum)
+  car.cog.material = calcCostMaterial.value(car.product.length, car.carNum, car.product.quality)
   car.cog.production = calcCostProduction.value(car.carNum)
 }
 
@@ -60,13 +60,13 @@ const changeSell = function(car): void {
 const changeProductOrPrice = function(car){
   let priceLine: number
   if (car.product.quality == '標準' && car.sales.record == true){
-    priceLine = 5000
-  }else if(car.product.quality == '標準' && car.sales.record == false){
-    priceLine = 4000
-  }else if(car.product.quality == 'プレミアム' && car.sales.record == true){
     priceLine = 6000
-  }else if(car.product.quality == 'プレミアム' && car.sales.record == false){
+  }else if(car.product.quality == '標準' && car.sales.record == false){
     priceLine = 5000
+  }else if(car.product.quality == 'プレミアム' && car.sales.record == true){
+    priceLine = 7000
+  }else if(car.product.quality == 'プレミアム' && car.sales.record == false){
+    priceLine = 6000
   }
 
   if (car.price < priceLine){
@@ -130,6 +130,7 @@ onMounted(() => {
             <select 
               v-model="car.product.quality"
               @change="changeProductOrPrice(car)"
+              :disabled="!car.sell"
             >
               <option>プレミアム</option>
               <option>標準</option>
@@ -143,6 +144,7 @@ onMounted(() => {
             step="500"
             v-model="car.price"
             @change="changeProductOrPrice(car)"
+            :disabled="!car.sell"
           />
         </td>
         <td style="width: 100px; height: 100px;">
