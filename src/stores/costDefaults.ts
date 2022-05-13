@@ -5,7 +5,10 @@ export const useCostDefaults = defineStore('costDefaults',{
   state: () => ({
     cog: {
       materials: {
-        glassPrice: 40,
+        glassPrice: {
+          normal: 40,
+          premium: 60,
+        },
         softwarePrice: 80,
       },
       productions: {
@@ -32,7 +35,16 @@ export const useCostDefaults = defineStore('costDefaults',{
   getters: {
     //原材料計算
     calcCostMaterial: (state) => {
-      return (length: number, num: number) => state.cog.materials.glassPrice * length * num + state.cog.materials.softwarePrice * num
+      function f(length: number, num: number, quality: string):number {
+        let cost: number
+        if (quality == '標準'){
+          cost = state.cog.materials.glassPrice.normal * length * num + state.cog.materials.softwarePrice * num
+        }else if(quality == 'プレミアム'){
+          cost = state.cog.materials.glassPrice.premium * length * num + state.cog.materials.softwarePrice * num
+        }
+        return cost
+      }
+      return f
     },
     //製造費計算
     calcCostProduction: (state) => {
