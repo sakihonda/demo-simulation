@@ -73,7 +73,7 @@ export const useCostDefaults = defineStore('costDefaults',{
     //研究開発費
     calcCostDevelopment: (state) => {
       const storeCars = useCars()
-      return (carNum: number): number => state.initialCosts.developments.software * storeCars.carNumRatioD('sell', true, carNum)
+      return (carNum:number): number => state.initialCosts.developments.software * storeCars.carNumRatioD(carNum)
     },
     //営業費
     calcCostSales: (state) => {

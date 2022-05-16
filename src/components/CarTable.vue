@@ -61,16 +61,16 @@ const changeSell = function(car): void {
 const changeProductOrPrice = function(car){
   let priceLine: number
   if (car.product.quality == '標準' && car.sales.record == true){
-    priceLine = 6000
+    priceLine = 8000
   }else if(car.product.quality == '標準' && car.sales.record == false){
-    priceLine = 5000
-  }else if(car.product.quality == 'プレミアム' && car.sales.record == true){
     priceLine = 7000
+  }else if(car.product.quality == 'プレミアム' && car.sales.record == true){
+    priceLine = 9000
   }else if(car.product.quality == 'プレミアム' && car.sales.record == false){
-    priceLine = 6000
+    priceLine = 8000
   }
 
-  if (car.price < priceLine){
+  if (car.price <= priceLine){
     car.isProperPrice = true
     setCog(car)
     setInitialCostsStatic(car)
@@ -105,7 +105,7 @@ onMounted(() => {
         <th>商品</th>
         <th>価格</th>
         <th>利益(千)</th>
-        <th>メーカー</th>
+        <th>顧客セグメント</th>
         <th>タイプ</th>
         <th>車種</th>
         <th>販売可能台数</th>
