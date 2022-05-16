@@ -17,6 +17,8 @@ const props = defineProps({
   }
 })
 
+//デプロイテストコメント
+
 function bgColor() {
   let color = 'rgba(0, 0, 0, 0.1)'
   if (props.profit > 0){
