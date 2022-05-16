@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// @ts-nocheck
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 

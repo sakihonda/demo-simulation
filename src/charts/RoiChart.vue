@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// @ts-nocheck
 import { ref, computed } from 'vue';
 import { BarChart } from 'vue-chart-3';
 import { Chart, registerables } from "chart.js";
@@ -15,7 +16,7 @@ const { initialCostsAll, riekiAll, carNumAllRatio} = storeToRefs(store) //refに
 
 const barRef = ref();　//chart.jsのおまじない
 
-const testData = computed(() => ({
+const testData:ChartData = computed(() => ({
   labels: ['20X1', '20X2', '20X3', '20X4', '20X5'],
   datasets: [
     {
