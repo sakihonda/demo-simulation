@@ -1,4 +1,41 @@
+// @ts-nocheck
 import { defineStore } from 'pinia'
+
+type carType = {
+    id: number;
+    sell: boolean;
+    price: number;
+    isProperPrice: boolean;
+    carNumPerYear: number[];
+    carNum: number;
+    profile: {
+        name: string;
+        companyType: string;
+        carType: string;
+    };
+    product: {
+        length: number;
+        quality: '標準' | 'プレミアム';
+    };
+    sales: {
+        record: boolean;
+        days: number;
+    };
+    initialCosts: {
+        investment: number;
+        development: number;
+        sales: number;
+    };
+    cog: {
+        material: number;
+        production: number;
+    };
+    initialCostsTotal: number;
+    cogTotal: number;
+    uriage: number;
+    rieki: number;
+
+}
 
 const data = [
     {carNum: [10000, 20000, 30000, 50000, 40000], name: 'T社', companyType: '一般車', carType: 'コンパクトカー', length:100,  record:true, days:50, },
@@ -11,79 +48,13 @@ const data = [
     {carNum: [10000, 10000, 10000, 20000, 20000], name: 'V社', companyType: '高級車', carType: 'SUV', length:150,  record:true, days:50, },
 ]
 
-// useStore could be anything like useUser, useCart
-// the first argument is a unique id of the store across your application
 export const useCars = defineStore('cars', {
-    //初期値
     state: () => ({
-        cars: [],
-        //     {
-        //         id:1,
-        //         sell:true,
-        //         price:5000,
-        //         get carNumPerYear (){
-        //             if (this.sell){
-        //                 return [10000, 20000, 30000, 50000, 40000]
-        //             }else{
-        //                 return [0,0,0,0,0]
-        //             }
-        //         },
-        //          get carNum(){
-        //             const ttl = this.carNumPerYear.reduce(function(sum,element){
-        //                 return sum + element
-        //             },0)
-        //             return ttl
-        //         },
-        //         profile:{
-        //             name:'T社',
-        //             companyType: '一般車',
-        //             carType: 'コンパクトカー',
-        //         },
-        //         product:{
-        //             length: 100,
-        //             quality: '標準'
-        //         },
-        //         sales: {
-        //             record: true,
-        //             days: 50,
-        //         },
-        //         initialCosts: {
-        //             investment: 0,
-        //             development: 0,
-        //             sales: 0,
-        //         },
-        //         cog: {
-        //             material: 0,
-        //             production: 0,
-        //         },
-        //         get initialCostsTotal(){
-        //             let sum: number = 0
-        //             for(let cost in this.initialCosts){
-        //                 sum = sum + this.initialCosts[cost]
-        //             }
-        //             return sum
-        //         },
-        //         get cogTotal(){
-        //             let sum: number = 0
-        //             for(let cost in this.cog){
-        //                 sum = sum + this.cog[cost]
-        //             }
-        //             return sum
-        //         },
-        //         get uriage(){
-        //             const uriage = this.price * this.carNum
-        //            return uriage
-        //        },
-        //         get rieki(){
-        //             const rieki = this.uriage - this.initialCostsTotal - this.cogTotal
-        //             return rieki
-        //         }
-        //     },
-        // ],
+            cars: [] as carType[],
     }),
     getters: {
-        carNumAll: (state) =>{
-            const numSum = state.cars.reduce(function(sum, car){
+        carNumAll: (state):number => {
+            const numSum: number = state.cars.reduce(function(sum, car:carType){
                 return sum + (car.carNum)
             },0)
             return numSum
@@ -96,6 +67,17 @@ export const useCars = defineStore('cars', {
                     ratio = carNum / this.carNumAll
                 }
                 return ratio
+            }
+            return f
+            
+        },
+        aaa():number{
+            return this.carNumAll + 1
+        },
+        bbb: () => {
+            //return () => this.carNumAll + 1
+            const f = () => {
+                return this.carNumAll + 1
             }
             return f
         },
@@ -114,7 +96,7 @@ export const useCars = defineStore('cars', {
     actions: {
         getCars(){
             for (let i=0; i < data.length; i++){
-                let car = {
+                let car: carType = {
                     id: i+1,
                     sell: true,
                     price:4000,

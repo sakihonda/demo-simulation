@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// @ts-nocheck
 import { Chart, registerables } from 'chart.js';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
@@ -12,7 +13,7 @@ const barRef = ref();
 
 const { uriageAll, cogAll, riekiAll, carNumAllRatio} = storeToRefs(useDataAll())
 
-const chartData = computed(() => ({
+const chartData:ChartData = computed(() => ({
     labels: ['20X1', '20X2', '20X3', '20X4', '20X5'],
     datasets: [
         {

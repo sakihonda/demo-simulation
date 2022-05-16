@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineStore, StateTree } from 'pinia'
 import { useCars } from "./cars";
 
