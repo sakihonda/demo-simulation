@@ -38,14 +38,14 @@ type carType = {
 }
 
 const data = [
-    {carNum: [10000, 20000, 30000, 50000, 40000], name: 'T社', companyType: '一般車', carType: 'コンパクトカー', length:100,  record:true, days:50, },
-    {carNum: [10000, 10000, 10000, 10000, 10000], name: 'T社', companyType: '一般車', carType: 'SUV', length:150,  record:true, days:70, },
-    {carNum: [40000, 30000, 10000, 10000, 10000], name: 'B社', companyType: '高級車', carType: 'セダン', length:100,  record:true, days:80, },
-    {carNum: [10000, 10000, 10000, 10000, 10000], name: 'B社', companyType: '高級車', carType: 'SUV', length:150,  record:false, days:100, },
-    {carNum: [50000, 50000, 50000, 30000, 20000], name: 'N社', companyType: '一般車', carType: 'ミニバン', length:150,  record:false, days:70, },
-    {carNum: [60000, 60000, 60000, 60000, 60000], name: 'N社', companyType: '一般車', carType: 'コンパクトカー', length:100,  record:false, days:60, },
-    {carNum: [10000, 10000, 10000, 10000, 10000], name: 'V社', companyType: '高級車', carType: 'セダン', length:100,  record:true, days:60, },
-    {carNum: [10000, 10000, 10000, 20000, 20000], name: 'V社', companyType: '高級車', carType: 'SUV', length:150,  record:true, days:50, },
+    {carNum: [10000, 20000, 10000, 30000, 20000], name: '日本 / 一般企業', companyType: '一般車', carType: 'コンパクトカー', length:100,  record:true, days:50, },
+    {carNum: [10000, 10000, 10000, 10000, 10000], name: '日本 / 一般企業', companyType: '一般車', carType: 'SUV', length:150,  record:true, days:70, },
+    {carNum: [20000, 20000, 10000, 10000, 10000], name: 'ドイツ / 保守企業', companyType: '高級車', carType: 'セダン', length:100,  record:true, days:80, },
+    {carNum: [10000, 10000, 10000, 10000, 10000], name: 'ドイツ / 保守企業', companyType: '高級車', carType: 'SUV', length:150,  record:false, days:100, },
+    {carNum: [30000, 20000, 30000, 20000, 20000], name: 'アメリカ / 一般企業', companyType: '一般車', carType: 'ミニバン', length:150,  record:false, days:70, },
+    {carNum: [20000, 30000, 20000, 10000, 10000], name: 'アメリカ / 一般企業', companyType: '一般車', carType: 'コンパクトカー', length:100,  record:false, days:60, },
+    {carNum: [10000, 10000, 10000, 10000, 10000], name: '中国 / 新興企業', companyType: '高級車', carType: 'セダン', length:100,  record:true, days:60, },
+    {carNum: [10000, 10000, 10000, 20000, 20000], name: '中国 / 新興企業', companyType: '高級車', carType: 'SUV', length:150,  record:true, days:50, },
 ]
 
 export const useCars = defineStore('cars', {
@@ -53,37 +53,32 @@ export const useCars = defineStore('cars', {
             cars: [] as carType[],
     }),
     getters: {
+        //販売台数トータル
         carNumAll: (state):number => {
             const numSum: number = state.cars.reduce(function(sum, car:carType){
                 return sum + (car.carNum)
             },0)
             return numSum
         },
+        //モールド初期投資計算用のratio
         carNumRatioI: (state) => {
             function f(length: number, quality: string, carNum: number){
-                const cars = state.cars.filter(car => car.product.length == length && car.product.quality == quality)
+                const filteredCars = state.cars.filter(car => car.product.length == length && car.product.quality == quality)
+                console.log(filteredCars)
                 let ratio: number = 0
-                if (this.carNumAll != 0){
-                    ratio = carNum / this.carNumAll
+                const filteredCarsSum = filteredCars.reduce(function(sum, filteredCar){
+                    return sum + (filteredCar.carNum)
+                }, 0)
+                if (filteredCarsSum > 0){
+                    ratio = carNum / filteredCarsSum
                 }
                 return ratio
             }
             return f
-            
         },
-        aaa():number{
-            return this.carNumAll + 1
-        },
-        bbb: () => {
-            //return () => this.carNumAll + 1
-            const f = () => {
-                return this.carNumAll + 1
-            }
-            return f
-        },
-        carNumRatioD: (state) => {
-            function f(prop: string, filterValue: any, carNum: number):number {
-                const cars = state.cars.filter(car => car[prop] == filterValue)
+        //開発費初期投資計算用のratio
+        carNumRatioD: ():number => {
+            function f(carNum:number){
                 let ratio: number = 0
                 if (this.carNumAll != 0){
                     ratio = carNum / this.carNumAll
