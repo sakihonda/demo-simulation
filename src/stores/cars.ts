@@ -1,51 +1,16 @@
 // @ts-nocheck
 import { defineStore } from 'pinia'
-
-type carType = {
-    id: number;
-    sell: boolean;
-    price: number;
-    isProperPrice: boolean;
-    carNumPerYear: number[];
-    carNum: number;
-    profile: {
-        name: string;
-        companyType: string;
-        carType: string;
-    };
-    product: {
-        length: number;
-        quality: '標準' | 'プレミアム';
-    };
-    sales: {
-        record: boolean;
-        days: number;
-    };
-    initialCosts: {
-        investment: number;
-        development: number;
-        sales: number;
-    };
-    cog: {
-        material: number;
-        production: number;
-    };
-    initialCostsTotal: number;
-    cogTotal: number;
-    uriage: number;
-    rieki: number;
-
-}
+import { carType } from '../types/carType'
 
 const data = [
-    {carNum: [10000, 20000, 10000, 30000, 20000], name: '日本 / 一般企業', companyType: '一般車', carType: 'コンパクトカー', length:100,  record:true, days:50, },
-    {carNum: [10000, 10000, 10000, 10000, 10000], name: '日本 / 一般企業', companyType: '一般車', carType: 'SUV', length:150,  record:true, days:70, },
-    {carNum: [20000, 20000, 10000, 10000, 10000], name: 'ドイツ / 保守企業', companyType: '高級車', carType: 'セダン', length:100,  record:true, days:80, },
-    {carNum: [10000, 10000, 10000, 10000, 10000], name: 'ドイツ / 保守企業', companyType: '高級車', carType: 'SUV', length:150,  record:false, days:100, },
-    {carNum: [30000, 20000, 30000, 20000, 20000], name: 'アメリカ / 一般企業', companyType: '一般車', carType: 'ミニバン', length:150,  record:false, days:70, },
-    {carNum: [20000, 30000, 20000, 10000, 10000], name: 'アメリカ / 一般企業', companyType: '一般車', carType: 'コンパクトカー', length:100,  record:false, days:60, },
-    {carNum: [10000, 10000, 10000, 10000, 10000], name: '中国 / 新興企業', companyType: '高級車', carType: 'セダン', length:100,  record:true, days:60, },
-    {carNum: [10000, 10000, 10000, 20000, 20000], name: '中国 / 新興企業', companyType: '高級車', carType: 'SUV', length:150,  record:true, days:50, },
+    {carNum: [10000, 20000, 10000, 10000, 20000], name: '日本 / 一般企業', companyType: '一般車', carShurui: 'コンパクトカー', length:100,  record:true, days:50, },
+    {carNum: [10000, 10000, 10000, 10000, 10000], name: '日本 / 一般企業', companyType: '一般車', carShurui: 'SUV', length:150,  record:true, days:70, },
+    {carNum: [10000, 20000, 10000, 10000, 20000], name: 'ドイツ / 保守企業', companyType: '高級車', carShurui: 'セダン', length:100,  record:true, days:80, },
+    {carNum: [5000, 10000, 10000, 10000, 10000], name: 'ドイツ / 保守企業', companyType: '高級車', carShurui: 'SUV', length:150,  record:false, days:100, },
+    {carNum: [20000, 10000, 20000, 10000, 5000], name: 'アメリカ / 一般企業', companyType: '一般車', carShurui: 'ミニバン', length:150,  record:false, days:70, },
+    {carNum: [10000, 20000, 20000, 10000, 10000], name: 'アメリカ / 一般企業', companyType: '一般車', carShurui: 'コンパクトカー', length:100,  record:false, days:60, },
+    {carNum: [10000, 10000, 10000, 10000, 10000], name: '中国 / 新興企業', companyType: '高級車', carShurui: 'セダン', length:100,  record:true, days:60, },
+    {carNum: [10000, 10000, 5000, 20000, 20000], name: '中国 / 新興企業', companyType: '高級車', carShurui: 'SUV', length:150,  record:true, days:50, },
 ]
 
 export const useCars = defineStore('cars', {
@@ -64,7 +29,6 @@ export const useCars = defineStore('cars', {
         carNumRatioI: (state) => {
             function f(length: number, quality: string, carNum: number){
                 const filteredCars = state.cars.filter(car => car.product.length == length && car.product.quality == quality)
-                console.log(filteredCars)
                 let ratio: number = 0
                 const filteredCarsSum = filteredCars.reduce(function(sum, filteredCar){
                     return sum + (filteredCar.carNum)
@@ -103,7 +67,7 @@ export const useCars = defineStore('cars', {
                             return [0,0,0,0,0]
                         }
                     },
-                    get carNum(){
+                    get carNum(){ //5年間の合計
                         const ttl = this.carNumPerYear.reduce(function(sum,element){
                             return sum + element
                         },0)
@@ -112,7 +76,7 @@ export const useCars = defineStore('cars', {
                     profile:{
                         name: data[i].name,
                         companyType: data[i].companyType,
-                        carType: data[i].carType,
+                        carShurui: data[i].carShurui,
                     },
                     product:{
                         length: data[i].length,

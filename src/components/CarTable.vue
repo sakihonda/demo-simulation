@@ -8,7 +8,12 @@ import CarProfitChart from '../charts/CarProfitChart.vue'
 //stores
 import { useCars } from '../stores/cars'
 import { useCostDefaults } from '../stores/costDefaults'
-//import { usePreviousDataAll } from "../stores/previousDataAll";
+
+//use
+import { setPriceLine } from "../use/priceLine"
+
+//type
+import type { carType } from "../types/carType";
 
 //carsのデータ
 const storeCars = useCars()
@@ -17,19 +22,17 @@ const { cars }  = storeToRefs(storeCars)
 //costDefaultsのデータ
 const { calcCostMaterial, calcCostProduction, calcCostInvestment, calcCostDevelopment, calcCostSales } = storeToRefs(useCostDefaults())
 
-//previous data
-//const storePreviousDataAll = usePreviousDataAll()
-
-const setCog = function(car): void {
+const setCog = function(car:carType): void {
   car.cog.material = calcCostMaterial.value(car.product.length, car.carNum, car.product.quality)
   car.cog.production = calcCostProduction.value(car.carNum)
 }
 
-const setInitialCostsStatic = function(car): void {
+const setInitialCostsStatic = function(car:carType): void {
   car.initialCosts.sales = calcCostSales.value(car.sales.days)
 }
 
-const setInitialCostsDynamic = function(car): void {
+//for文が必要
+const setInitialCostsDynamic = function(car:carType): void {
   car.initialCosts.investment = calcCostInvestment.value(car.product.length, car.product.quality, car.carNum)
   car.initialCosts.development = calcCostDevelopment.value(car.carNum)
 }
@@ -50,26 +53,10 @@ const changeSell = function(car): void {
   }
 }
 
-// 商品の種類 select box
-// const changeProductOrPrice = function(car){
-//   for (let i=0; i < cars.value.length; i++){
-//     setInitialCostsDynamic(cars.value[i])
-//   }
-// }
 
-// 商品の価格 input box
-const changeProductOrPrice = function(car){
-  let priceLine: number
-  if (car.product.quality == '標準' && car.sales.record == true){
-    priceLine = 8000
-  }else if(car.product.quality == '標準' && car.sales.record == false){
-    priceLine = 7000
-  }else if(car.product.quality == 'プレミアム' && car.sales.record == true){
-    priceLine = 9000
-  }else if(car.product.quality == 'プレミアム' && car.sales.record == false){
-    priceLine = 8000
-  }
-
+// 商品の価格 または 種類の変更
+const changeProductOrPrice = function(car:carType){
+  let priceLine: number = setPriceLine(car.product.length, car.product.quality, car.sales.record)
   if (car.price <= priceLine){
     car.isProperPrice = true
     setCog(car)
@@ -102,7 +89,7 @@ onMounted(() => {
       <tr>
         <th></th>
         <th>販売する</th>
-        <th>商品</th>
+        <th>商品タイプ</th>
         <th>価格</th>
         <th>利益(千)</th>
         <th>顧客セグメント</th>
@@ -137,7 +124,7 @@ onMounted(() => {
               <option>標準</option>
             </select>
           </p>
-          <p>{{ car.product.length }}cm</p>
+          <p>幅: {{ car.product.length }}cm</p>
         </td>
         <td>
           <input 
@@ -154,7 +141,7 @@ onMounted(() => {
 
         <td>{{car.profile.name}}</td>
         <td>{{ car.profile.companyType }}</td>
-        <td>{{ car.profile.carType }}</td>
+        <td>{{ car.profile.carShurui }}</td>
         <td><span>{{car.carNum.toLocaleString()}}</span></td>
         <td>{{ car.sales.days }}</td>
         <td>
