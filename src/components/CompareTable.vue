@@ -5,13 +5,9 @@ import { RoundNum } from "../use/calcChart";
 
 //stores
 import { useDataAll } from '../stores/dataAll';
-import { usePreviousDataAll } from '../stores/previousDataAll'
 
 const storeDataAll = useDataAll()
 const {uriageAll, cogAll, initialCostsAll, riekiAll, roiAll} = storeToRefs(storeDataAll) //refに変換
-
-const storePreviousDataAll = usePreviousDataAll()
-const { previous } = storeToRefs(storePreviousDataAll)
 
 const showRoi = function(roi: number) :number{
     let roi1 = roi * 100
@@ -26,37 +22,30 @@ const showRoi = function(roi: number) :number{
     <table class="table table-bordered">
         <thead>
         <tr>
-            <!--<th></th>-->
-            <th>売上</th>
-            <th>売上原価</th>
-            <th>利益</th>
-            <th>初期投資</th>
-            <th>ROI</th>
+          <th>ROI</th>
+          <th>売上</th>
+          <th>売上原価</th>
+          <th>利益</th>
+          <th>初期投資</th>
         </tr>
         </thead>
         <tbody>
             <tr>
-                <!--<th>今回</th>-->
+                <td class="blue">{{showRoi(roiAll)}}%</td>
                 <td>{{RoundNum(uriageAll).toLocaleString()}}</td>
                 <td>{{RoundNum(cogAll).toLocaleString()}}</td>
                 <td>{{RoundNum(riekiAll).toLocaleString()}}</td>
                 <td>{{RoundNum(initialCostsAll).toLocaleString()}}</td>
-                <td>{{showRoi(roiAll)}}%</td>
             </tr>
-            <!--<tr>
-                <th>前回</th>
-                <td>{{RoundNum(previous.uriageAll).toLocaleString()}}</td>
-                <td>{{RoundNum(previous.cogAll).toLocaleString()}}</td>
-                <td>{{RoundNum(previous.riekiAll).toLocaleString()}}</td>
-                <td>{{RoundNum(previous.initialCostsAll).toLocaleString()}}</td>
-                <td>{{showRoi(previous.roiAll)}}%</td>
-            </tr>-->
         </tbody>
     </table>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.blue{
+  background-color: #cedbe2;
+}
 .gray{
   background-color:rgb(226, 225, 225);
   color: gray;
