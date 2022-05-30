@@ -84,73 +84,75 @@ onMounted(() => {
 </script>
 
 <template>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th></th>
-        <th>販売する</th>
-        <th>商品タイプ</th>
-        <th>価格</th>
-        <th>利益(千)</th>
-        <th>顧客セグメント</th>
-        <th>タイプ</th>
-        <th>車種</th>
-        <th>販売可能台数</th>
-        <th>営業工数</th>
-        <th>取引実績</th>
-      </tr>
-    </thead>
-    <tbody>
+  <b-table-simple hover>
+    <b-thead>
+      <b-tr>
+        <b-th></b-th>
+        <b-th>販売する</b-th>
+        <b-th>商品タイプ</b-th>
+        <b-th>価格</b-th>
+        <b-th>利益(千)</b-th>
+        <b-th>顧客セグメント</b-th>
+        <b-th>タイプ</b-th>
+        <b-th>車種</b-th>
+        <b-th>販売可能台数</b-th>
+        <b-th>営業工数</b-th>
+        <b-th>取引実績</b-th>
+      </b-tr>
+    </b-thead>
+    <b-tbody class="align-middle">
       <tr v-for="car in cars"
           :key="car.id"
           :class="{gray: !car.sell}">
 
-        <td>{{ car.id }}</td>
+        <b-td>{{ car.id }}</b-td>
 
-        <td> 
-          <input type="checkbox" id="checkbox"
+        <b-td style="padding:0; max-width:30px;"> 
+          <b-form-checkbox
             v-model="car.sell"
             @change="changeSell(car)"
+            size="lg"
+            style="float:none; margin-left:-1em;"
           />
-        </td>
-        <td>
-          <p>
-            <select 
+        </b-td>
+        <b-td>
+            <b-form-select 
               v-model="car.product.quality"
               @change="changeProductOrPrice(car)"
               :disabled="!car.sell"
             >
               <option>プレミアム</option>
               <option>標準</option>
-            </select>
-          </p>
-          <p>幅: {{ car.product.length }}cm</p>
-        </td>
-        <td>
-          <input 
-            type="number"
-            step="500"
-            v-model="car.price"
-            @change="changeProductOrPrice(car)"
-            :disabled="!car.sell"
-          />
-        </td>
-        <td style="width: 100px; height: 100px;">
+            </b-form-select>
+          <p class="align-text-bottom">幅: {{ car.product.length }}cm</p>
+        </b-td>
+        <b-td style="min-width:130px;">
+          <b-input-group prepend="¥">
+            <b-form-input 
+              type="number"
+              step="500"
+              v-model="car.price"
+              @change="changeProductOrPrice(car)"
+              :disabled="!car.sell"
+            />
+          </b-input-group>
+        </b-td>
+        <b-td style="width: 100px; height: 100px;">
           <CarProfitChart :profit="car.rieki"></CarProfitChart>
-        </td>
+        </b-td>
 
-        <td>{{car.profile.name}}</td>
-        <td>{{ car.profile.companyType }}</td>
-        <td>{{ car.profile.carShurui }}</td>
-        <td><span>{{car.carNum.toLocaleString()}}</span></td>
-        <td>{{ car.sales.days }}</td>
-        <td>
+        <b-td>{{car.profile.name}}</b-td>
+        <b-td>{{ car.profile.companyType }}</b-td>
+        <b-td>{{ car.profile.carShurui }}</b-td>
+        <b-td><span>{{car.carNum.toLocaleString()}}</span></b-td>
+        <b-td>{{ car.sales.days }}</b-td>
+        <b-td>
           <span v-if="car.sales.record">◯</span>
           <span v-else></span>
-        </td>
+        </b-td>
       </tr>
-    </tbody>
-  </table>
+    </b-tbody>
+  </b-table-simple>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -176,5 +178,9 @@ a {
 
 input {
   max-width: 80px;
+}
+
+td {
+  font-size: 0.9rem;
 }
 </style>
