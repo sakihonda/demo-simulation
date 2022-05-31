@@ -56,6 +56,7 @@ const changeSell = function(car): void {
 
 // 商品の価格 または 種類の変更
 const changeProductOrPrice = function(car:carType){
+  console.log('価格変えたよ')
   let priceLine: number = setPriceLine(car.product.length, car.product.quality, car.sales.record)
   if (car.price <= priceLine){
     car.isProperPrice = true
@@ -107,39 +108,45 @@ onMounted(() => {
 
         <b-td>{{ car.id }}</b-td>
 
-        <b-td style="padding:0; max-width:30px;"> 
-          <b-form-checkbox
+        <td style="padding:0; max-width:30px;"> 
+          <input class="form-check-input"
+            type="checkbox"
             v-model="car.sell"
             @change="changeSell(car)"
-            size="lg"
-            style="float:none; margin-left:-1em;"
+            style="width:1.5em; height:1.5em;"
           />
-        </b-td>
-        <b-td>
-            <b-form-select 
+        </td>
+        <td style="position: relative; min-width:100px;">
+            <select class="form-select"
               v-model="car.product.quality"
               @change="changeProductOrPrice(car)"
               :disabled="!car.sell"
+              style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
             >
               <option>プレミアム</option>
               <option>標準</option>
-            </b-form-select>
-          <p class="align-text-bottom">幅: {{ car.product.length }}cm</p>
-        </b-td>
+            </select>
+
+          <span
+            style="position:absolute; top: 100%; left: 75%; transform: translate(-120%, -120%);"
+          >
+            幅:{{ car.product.length }}cm
+          </span>
+        </td>
         <b-td style="min-width:130px;">
           <b-input-group prepend="¥">
-            <b-form-input 
+            <input class="form-control"
               type="number"
               step="500"
               v-model="car.price"
-              @change="changeProductOrPrice(car)"
+              @click="changeProductOrPrice(car)"
               :disabled="!car.sell"
             />
           </b-input-group>
         </b-td>
-        <b-td style="width: 100px; height: 100px;">
+        <td style="width: 100px; height: 100px;">
           <CarProfitChart :profit="car.rieki"></CarProfitChart>
-        </b-td>
+        </td>
 
         <b-td>{{car.profile.name}}</b-td>
         <b-td>{{ car.profile.companyType }}</b-td>

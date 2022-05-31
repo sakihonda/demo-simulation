@@ -8,10 +8,10 @@ import ProfitChart from './charts/ProfitChart.vue';
 <template>
   <b-container fluid>
     <b-row>
-      <b-col cols="6">
+      <b-col cols="7">
         <CarTable></CarTable>
       </b-col>
-      <b-col cols="6">
+      <b-col cols="5">
         <b-row>
           <CompareTable></CompareTable>
         </b-row>
