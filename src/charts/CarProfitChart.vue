@@ -20,6 +20,7 @@ const props = defineProps({
 //デプロイテストコメント
 
 function bgColor() {
+  console.log('チャート更新')
   let color = 'rgba(0, 0, 0, 0.1)'
   if (props.profit > 0){
     color = '#D5E4ED'
