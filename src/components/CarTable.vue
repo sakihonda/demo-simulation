@@ -82,6 +82,18 @@ onMounted(() => {
   }
 })
 
+const aaa = function(){
+  console.log('あああ')
+}
+
+let timeOut = null
+const inputTimeOut = function(e){
+  clearTimeout(timeOut)
+  timeOut = setTimeout(()=>{
+    e.target.blur()
+  }, 1500)
+}
+
 </script>
 
 <template>
@@ -136,10 +148,13 @@ onMounted(() => {
         <b-td style="min-width:130px;">
           <b-input-group prepend="¥">
             <input class="form-control"
+              ref="target"
               type="number"
               step="500"
-              v-model="car.price"
-              @click="changeProductOrPrice(car)"
+              v-model.lazy="car.price"
+              @focus="$event.target.select()"
+              @keyup="inputTimeOut"
+              @change="changeProductOrPrice(car)"
               :disabled="!car.sell"
             />
           </b-input-group>
