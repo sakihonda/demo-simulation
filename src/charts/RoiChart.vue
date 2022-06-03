@@ -5,7 +5,7 @@ import { BarChart } from 'vue-chart-3';
 import { Chart, registerables } from "chart.js";
 import { useDataAll } from '../stores/dataAll';
 import { storeToRefs } from "pinia";
-import { calcChartData, calcChartAccumlatedData, RoundNum } from '../use/calcChart'
+import { calcChartAccumlatedData, RoundNum } from '../use/calcChart'
 import annotationPlugin from 'chartjs-plugin-annotation';
 
 Chart.register(...registerables); //chart.jsのおまじない
@@ -16,13 +16,21 @@ const { initialCostsAll, riekiAll, carNumAllRatio} = storeToRefs(store) //refに
 
 const barRef = ref();　//chart.jsのおまじない
 
+const setInitialCostsLine = function(){
+  if (initialCostsAll.value > 200000000){
+    return [200000, 200000, 200000, 200000, 200000]
+  }else{
+    return [RoundNum(initialCostsAll.value), RoundNum(initialCostsAll.value), RoundNum(initialCostsAll.value), RoundNum(initialCostsAll.value), RoundNum(initialCostsAll.value),]
+  }
+}
+
 const testData:ChartData = computed(() => ({
   labels: ['20X1', '20X2', '20X3', '20X4', '20X5'],
   datasets: [
     {
             type: 'line',
             label: '初期投資(千)',
-            data: [RoundNum(initialCostsAll.value), RoundNum(initialCostsAll.value), RoundNum(initialCostsAll.value), RoundNum(initialCostsAll.value), RoundNum(initialCostsAll.value),],
+            data: setInitialCostsLine(),
             borderColor:'#77A3BD',
             backgroundColor: '#77A3BD'
     },
