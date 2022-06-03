@@ -86,16 +86,12 @@ onMounted(() => {
   }
 })
 
-const aaa = function(){
-  console.log('あああ')
-}
-
 let timeOut = null
 const inputTimeOut = function(e){
   clearTimeout(timeOut)
   timeOut = setTimeout(()=>{
     e.target.blur()
-  }, 1500)
+  }, 1000)
 }
 
 </script>
