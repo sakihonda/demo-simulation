@@ -22,6 +22,10 @@ const { cars }  = storeToRefs(storeCars)
 //costDefaultsのデータ
 const { calcCostMaterial, calcCostProduction, calcCostInvestment, calcCostDevelopment, calcCostSales } = storeToRefs(useCostDefaults())
 
+//typescriptのエラー回避のためのアノテーション
+const tsEventTarget = (event: Event) => 
+      (event.target as HTMLInputElement)
+
 const setCog = function(car:carType): void {
   car.cog.material = calcCostMaterial.value(car.product.length, car.carNum, car.product.quality)
   car.cog.production = calcCostProduction.value(car.carNum)
@@ -152,7 +156,7 @@ const inputTimeOut = function(e){
               type="number"
               step="500"
               v-model.lazy="car.price"
-              @focus="$event.target.select()"
+              @focus="tsEventTarget($event).select()"
               @keyup="inputTimeOut"
               @change="changeProductOrPrice(car)"
               :disabled="!car.sell"
