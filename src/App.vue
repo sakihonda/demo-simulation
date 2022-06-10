@@ -3,9 +3,23 @@ import CarTable from './components/CarTable.vue';
 import CompareTable from './components/CompareTable.vue';
 import RoiChart from './charts/RoiChart.vue';
 import ProfitChart from './charts/ProfitChart.vue';
+import SmartPhone from './components/SmartPhone.vue';
+
+const isSmartPhone = function():boolean{
+  if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)) {
+    return true;
+  } else {
+    return false;
+  }
+}
 </script>
 
 <template>
+<div v-if="isSmartPhone()">
+  <SmartPhone></SmartPhone>
+</div>
+
+<div v-else>
   <b-container fluid>
     <b-row>
       <b-col cols="7">
@@ -26,6 +40,7 @@ import ProfitChart from './charts/ProfitChart.vue';
       </b-col>
     </b-row>
   </b-container>
+</div>
 </template>
 
 <style>
