@@ -97,28 +97,28 @@ const inputTimeOut = function(e){
 </script>
 
 <template>
-  <b-table-simple hover>
-    <b-thead>
-      <b-tr>
-        <b-th></b-th>
-        <b-th>販売する</b-th>
-        <b-th>商品タイプ</b-th>
-        <b-th>価格</b-th>
-        <b-th>利益(千)</b-th>
-        <b-th>顧客セグメント</b-th>
-        <b-th>タイプ</b-th>
-        <b-th>車種</b-th>
-        <b-th>販売可能台数</b-th>
-        <b-th>営業工数</b-th>
-        <b-th>取引実績</b-th>
-      </b-tr>
-    </b-thead>
-    <b-tbody class="align-middle">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th></th>
+        <th>販売する</th>
+        <th>商品タイプ</th>
+        <th>価格</th>
+        <th>利益(千)</th>
+        <th>顧客セグメント</th>
+        <th>タイプ</th>
+        <th>車種</th>
+        <th>販売可能台数</th>
+        <th>営業工数</th>
+        <th>取引実績</th>
+      </tr>
+    </thead>
+    <tbody class="align-middle">
       <tr v-for="car in cars"
           :key="car.id"
           :class="{gray: !car.sell}">
 
-        <b-td>{{ car.id }}</b-td>
+        <td>{{ car.id }}</td>
 
         <td style="padding:0; max-width:30px;"> 
           <input class="form-check-input"
@@ -145,8 +145,9 @@ const inputTimeOut = function(e){
             幅:{{ car.product.length }}cm
           </span>
         </td>
-        <b-td style="min-width:130px;">
-          <b-input-group prepend="¥">
+        <td style="min-width:130px;">
+          <div class="input-group">
+            <span class="input-group-text">¥</span>
             <input class="form-control"
               ref="target"
               type="number"
@@ -157,24 +158,24 @@ const inputTimeOut = function(e){
               @change="changeProductOrPrice(car)"
               :disabled="!car.sell"
             />
-          </b-input-group>
-        </b-td>
+          </div>
+        </td>
         <td style="width: 100px; height: 100px;">
           <CarProfitChart :profit="car.rieki"></CarProfitChart>
         </td>
 
-        <b-td>{{car.profile.name}}</b-td>
-        <b-td>{{ car.profile.companyType }}</b-td>
-        <b-td>{{ car.profile.carShurui }}</b-td>
-        <b-td><span>{{car.carNum.toLocaleString()}}</span></b-td>
-        <b-td>{{ car.sales.days }}</b-td>
-        <b-td>
+        <td>{{car.profile.name}}</td>
+        <td>{{ car.profile.companyType }}</td>
+        <td>{{ car.profile.carShurui }}</td>
+        <td><span>{{car.carNum.toLocaleString()}}</span></td>
+        <td>{{ car.sales.days }}</td>
+        <td>
           <span v-if="car.sales.record">◯</span>
           <span v-else></span>
-        </b-td>
+        </td>
       </tr>
-    </b-tbody>
-  </b-table-simple>
+    </tbody>
+  </table>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -20,26 +20,29 @@ const isSmartPhone = function():boolean{
 </div>
 
 <div v-else>
-  <b-container fluid>
-    <b-row>
-      <b-col cols="7">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-7">
         <CarTable></CarTable>
-      </b-col>
-      <b-col cols="5">
-        <b-row>
+      </div>
+
+      <div class="col-5">
+        <div class="row">
           <CompareTable></CompareTable>
-        </b-row>
-        <b-row>
-          <b-col cols="6">
+        </div>
+        <div class="row">
+          <div class="col-6">
             <RoiChart></RoiChart>
-          </b-col>
-          <b-col cols="6">
+          </div>
+          <div class="col-6">
             <ProfitChart></ProfitChart>
-          </b-col>
-        </b-row>
-      </b-col>
-    </b-row>
-  </b-container>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 </template>
 
