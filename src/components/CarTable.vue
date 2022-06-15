@@ -11,6 +11,7 @@ import { useCostDefaults } from '../stores/costDefaults'
 
 //use
 import { setPriceLine } from "../use/priceLine"
+import { isDesktop } from "../use/detectDevice";
 
 //type
 import type { carType } from "../types/carType";
@@ -97,7 +98,8 @@ const inputTimeOut = function(e){
 </script>
 
 <template>
-  <table class="table table-hover">
+  <table class="table table-hover"
+    :class="{'table-sm':!isDesktop()}">
     <thead>
       <tr>
         <th></th>
@@ -120,35 +122,32 @@ const inputTimeOut = function(e){
 
         <td>{{ car.id }}</td>
 
-        <td style="padding:0; max-width:30px;"> 
-          <input class="form-check-input"
+        <td class="checkbox-sell-td"> 
+          <input class="form-check-input checkbox-sell"
             type="checkbox"
             v-model="car.sell"
             @change="changeSell(car)"
-            style="width:1.5em; height:1.5em;"
           />
         </td>
-        <td style="position: relative; min-width:100px;">
-            <select class="form-select"
+        <td class="select-product-td">
+            <select class="form-select select-product"
               v-model="car.product.quality"
               @change="changeProductOrPrice(car)"
               :disabled="!car.sell"
-              style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
             >
               <option>プレミアム</option>
               <option>標準</option>
             </select>
 
-          <span
-            style="position:absolute; top: 100%; left: 75%; transform: translate(-120%, -120%);"
+          <span class="select-product-span"
           >
             幅:{{ car.product.length }}cm
           </span>
         </td>
-        <td style="min-width:130px;">
-          <div class="input-group">
+        <td class="input-price-td">
+          <div class="input-group input-price-group">
             <span class="input-group-text">¥</span>
-            <input class="form-control"
+            <input class="form-control input-price"
               ref="target"
               type="number"
               step="500"
@@ -160,7 +159,7 @@ const inputTimeOut = function(e){
             />
           </div>
         </td>
-        <td style="width: 100px; height: 100px;">
+        <td class="chart-td">
           <CarProfitChart :profit="car.rieki"></CarProfitChart>
         </td>
 
@@ -184,26 +183,86 @@ const inputTimeOut = function(e){
   background-color:rgb(226, 225, 225);
   color: gray;
 }
-h3 {
-  margin: 40px 0 0;
+
+.checkbox-sell-td{
+  padding:0; 
+  max-width:30px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.checkbox-sell{
+  width:1.5em; 
+  height:1.5em;
 }
 
-input {
-  max-width: 80px;
+.select-product-td{
+  position: relative;
+  min-width:130px;
+}
+
+.select-product {
+  position:absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+}
+
+.select-product-span{
+  position:absolute; 
+  top: 100%; 
+  left: 60%; 
+  transform: translate(-120%, -120%);
+}
+
+.input-price-td{
+  min-width:130px;
+}
+
+.input-price{
+  max-width: 89px;
+}
+
+.chart-td{
+  width: 130px;
+  height: 100px;
 }
 
 td {
   font-size: 0.9rem;
 }
+
+@media screen and (max-width:1400px) {
+  td, th {
+    font-size: 0.7rem;
+  }
+
+  .select-product-td{
+    min-width:107px;
+  }
+  .select-product {
+    font-size: 0.7rem;
+  }
+
+  .select-product-span{
+    left:55%;
+  }
+
+  .input-price-td{
+    min-width:92px;
+  }
+
+  .input-price-group *{
+    font-size: 0.7rem;
+  }
+
+  .input-price{
+    max-width: 75px;
+  }
+
+  .chart-td{
+    width: 80px; 
+    height: 80px;
+  }
+
+
+}
+
 </style>

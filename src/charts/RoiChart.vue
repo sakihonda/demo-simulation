@@ -80,3 +80,11 @@ const options = ref({
   <!--<p>investment:   {{initialCostsAll.toLocaleString()}}</p>
   <p>利益：  {{calcChartData(riekiAll, carNumAllRatio)}}</p>-->
 </template>
+
+<style scoped>
+@media screen and (max-width:1400px) {
+  p{
+    font-size: 0.9rem;
+  }
+}
+</style>

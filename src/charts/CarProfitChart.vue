@@ -5,6 +5,7 @@ import { BarChart } from 'vue-chart-3';
 import { Chart, registerables } from "chart.js";
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { RoundNum } from '../use/calcChart'
+import { isDesktop } from '../use/detectDevice'
 
 Chart.register(...registerables); //chart.jsのおまじない
 Chart.register(annotationPlugin);
@@ -17,7 +18,6 @@ const props = defineProps({
   }
 })
 
-//デプロイテストコメント
 
 function bgColor() {
   let color = 'rgba(0, 0, 0, 0.1)'
@@ -78,8 +78,24 @@ const options = ref({
     }
 })
 
+const height = function():number{
+  if (isDesktop == true){
+    return 90
+  }else{
+    return 70
+  }
+}
+
+const width = function():number{
+  if (isDesktop == true){
+    return 100
+  }else{
+    return 90
+  }
+}
+
 </script>
 
 <template>
-  <BarChart ref="barRef" :chartData="chartData" :options="options" />
+  <BarChart ref="barRef" :chartData="chartData" :options="options" :height="height()" :width="width()" />
 </template>
