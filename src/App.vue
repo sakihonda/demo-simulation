@@ -4,14 +4,8 @@ import CompareTable from './components/CompareTable.vue';
 import RoiChart from './charts/RoiChart.vue';
 import ProfitChart from './charts/ProfitChart.vue';
 import SmartPhone from './components/SmartPhone.vue';
+import { isSmartPhone,isDesktop } from './use/detectDevice';
 
-const isSmartPhone = function():boolean{
-  if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)) {
-    return true;
-  } else {
-    return false;
-  }
-}
 </script>
 
 <template>
@@ -20,7 +14,9 @@ const isSmartPhone = function():boolean{
 </div>
 
 <div v-else>
-  <div class="container-fluid">
+  <div 
+    class="px-4"
+    :class="{'container-fluid':isDesktop(), 'container-xxl':!isDesktop()}">
     <div class="row">
 
       <div class="col-7">

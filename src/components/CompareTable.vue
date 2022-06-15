@@ -18,8 +18,8 @@ const showRoi = function(roi: number) :number{
 </script>
 
 <template>
-    <p>全体比較(単位:千円)</p>
-    <table class="table table-bordered">
+    <p>全体比較(単位:千円) / 5カ年</p>
+    <table class="table mb-5">
         <thead>
         <tr>
           <th>ROI</th>
@@ -46,26 +46,14 @@ const showRoi = function(roi: number) :number{
 .blue{
   background-color: #cedbe2;
 }
-.gray{
-  background-color:rgb(226, 225, 225);
-  color: gray;
-}
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+
+@media screen and (max-width:1400px) {
+  p{
+    font-size: 0.9rem;
+  }
+  table *{
+    font-size: 0.8rem;
+  }
 }
 
-input {
-  max-width: 80px;
-}
 </style>
