@@ -14,6 +14,9 @@ library.add(fas);
 import "bootstrap/dist/css/bootstrap.min.css"
 import './assets/css/styles.css' 
 
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+
 createApp(App)
     .component('font-awesome-icon', FontAwesomeIcon)
     .use(createPinia())
