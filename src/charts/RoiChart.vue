@@ -2,6 +2,7 @@
 // @ts-nocheck
 import { ref, computed } from 'vue';
 import { Bar } from 'vue-chartjs';
+import type { ChartOptions, ChartData } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation'
 import { useDataAll } from '../stores/dataAll';
 import { storeToRefs } from "pinia";
@@ -20,7 +21,7 @@ const setInitialCostsLine = function():number{
   }
 }
 
-const testData = computed(() => ({
+const testData = computed(():ChartData<'bar'> => ({
   labels: ['20X1', '20X2', '20X3', '20X4', '20X5'],
   datasets: [
     // {
@@ -37,7 +38,7 @@ const testData = computed(() => ({
   ],
 }))
 
-const options = computed(() => ({
+const options = computed(():ChartOptions => ({
   //responsive: true,
   //maintainAspectRatio: true,
   legend:{

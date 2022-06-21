@@ -7,13 +7,16 @@ import { Bar } from 'vue-chartjs';
 
 import { calcChartData } from '../use/calcChart'
 
+import type { ChartType, ChartOptions,ChartData } from 'chart.js';
+//import type { TChartData } from 'vue-chartjs/dist/types';
+
 const { uriageAll, cogAll, riekiAll, carNumAllRatio} = storeToRefs(useDataAll())
 
-const chartData = computed(() => ({
+const chartData = computed(():ChartData<'bar'> => ({
     labels: ['20X1', '20X2', '20X3', '20X4', '20X5'],
     datasets: [
         {
-            type: 'line',
+            type: 'line' as ChartType,
             label: '利益',
             data: calcChartData(riekiAll.value, carNumAllRatio.value), //利益
             borderColor:'#77A3BD',
@@ -31,7 +34,7 @@ const chartData = computed(() => ({
     ],
 }))
 
-const options = computed(() => ({
+const options = computed(():ChartOptions => ({
     legend:{
         display:false,
     },
