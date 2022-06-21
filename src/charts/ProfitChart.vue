@@ -1,19 +1,15 @@
 <script setup lang="ts">
 // @ts-nocheck
-import { Chart, registerables } from 'chart.js';
 import { storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed} from 'vue';
 import { useDataAll } from '../stores/dataAll';
-import { BarChart } from 'vue-chart-3';
+import { Bar } from 'vue-chartjs';
+
 import { calcChartData } from '../use/calcChart'
-
-
-Chart.register(...registerables);
-const barRef = ref();
 
 const { uriageAll, cogAll, riekiAll, carNumAllRatio} = storeToRefs(useDataAll())
 
-const chartData:ChartData = computed(() => ({
+const chartData = computed(() => ({
     labels: ['20X1', '20X2', '20X3', '20X4', '20X5'],
     datasets: [
         {
@@ -35,28 +31,18 @@ const chartData:ChartData = computed(() => ({
     ],
 }))
 
-const options = ref({
-    //responsive: true,
-    //maintainAspectRatio: true,
+const options = computed(() => ({
     legend:{
         display:false,
     },
-    scales: {
-        // y: {
-        //     max: 90000000,
-        //     min: -150000000,
-        //     ticks: {
-        //         stepSize: 100000000,
-        //     }
-        // }
-    },
-})
+}))
+
 
 </script>
 
 <template>
     <p class="mb-0">売上高と売上原価</p>
-    <BarChart ref="barRef" :chartData="chartData" :options="options" />
+    <Bar :chart-data="chartData" :chart-options="options" />
     <!--<p>売上　{{calcChartData(uriageAll, carNumAllRatio)}}　</p>
     <p>cog {{calcChartData(cogAll, carNumAllRatio)}}</p>
     <p>利益　{{calcChartData(riekiAll, carNumAllRatio)}}　</p>-->

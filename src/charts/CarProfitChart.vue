@@ -1,15 +1,10 @@
 <script setup lang="ts">
 // @ts-nocheck
-import { ref, computed } from 'vue';
-import { BarChart } from 'vue-chart-3';
-import { Chart, registerables } from "chart.js";
-import annotationPlugin from 'chartjs-plugin-annotation';
+import { computed } from 'vue';
+import { Bar } from 'vue-chartjs';
+
 import { RoundNum } from '../use/calcChart'
 import { isDesktop } from '../use/detectDevice'
-
-Chart.register(...registerables); //chart.jsのおまじない
-Chart.register(annotationPlugin);
-const barRef = ref();　//chart.jsのおまじない
 
 const props = defineProps({
   profit: {
@@ -38,9 +33,9 @@ const chartData = computed(() => ({
         backgroundColor: bgColor()
     },
     ],
-}));
+}))
 
-const options = ref({
+const options = computed(() => ({
     indexAxis: 'y',
     plugins: {
       legend: {
@@ -76,7 +71,7 @@ const options = ref({
         beginAtZero: true
       }
     }
-})
+}))
 
 const height = function():number{
   if (isDesktop == true){
@@ -97,5 +92,5 @@ const width = function():number{
 </script>
 
 <template>
-  <BarChart ref="barRef" :chartData="chartData" :options="options" :height="height()" :width="width()" />
+  <Bar :chart-data="chartData" :chart-options="options" :height="height()" :width="width()" />
 </template>

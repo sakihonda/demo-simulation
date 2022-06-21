@@ -212,7 +212,7 @@
   dependencies:
     "@vue/shared" "3.2.31"
 
-"@vue/runtime-core@3.2.31", "@vue/runtime-core@latest":
+"@vue/runtime-core@3.2.31":
   version "3.2.31"
   resolved "https://registry.yarnpkg.com/@vue/runtime-core/-/runtime-core-3.2.31.tgz#9d284c382f5f981b7a7b5971052a1dc4ef39ac7a"
   integrity sha512-Kcog5XmSY7VHFEMuk4+Gap8gUssYMZ2+w+cmGI6OpZWYOEIcbE0TPzzPHi+8XTzAgx1w/ZxDFcXhZeXN5eKWsA==
@@ -220,7 +220,7 @@
     "@vue/reactivity" "3.2.31"
     "@vue/shared" "3.2.31"
 
-"@vue/runtime-dom@3.2.31", "@vue/runtime-dom@latest":
+"@vue/runtime-dom@3.2.31":
   version "3.2.31"
   resolved "https://registry.yarnpkg.com/@vue/runtime-dom/-/runtime-dom-3.2.31.tgz#79ce01817cb3caf2c9d923f669b738d2d7953eff"
   integrity sha512-N+o0sICVLScUjfLG7u9u5XCjvmsexAiPt17GNnaWHJUfsKed5e85/A3SWgKxzlxx2SW/Hw7RQxzxbXez9PtY3g==
@@ -284,10 +284,10 @@ character-parser@^2.2.0:
   dependencies:
     is-regex "^1.0.3"
 
-chart.js@^3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.7.1.tgz#0516f690c6a8680c6c707e31a4c1807a6f400ada"
-  integrity sha512-8knRegQLFnPQAheZV8MjxIXc5gQEfDFD897BJgv/klO/vtIyFFmgMXrNfgrXpbTr/XbTturxRgxIXx/Y+ASJBA==
+chart.js@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.8.0.tgz#c6c14c457b9dc3ce7f1514a59e9b262afd6f1a94"
+  integrity sha512-cr8xhrXjLIXVLOBZPkBZVF6NDeiVIrPLHcMhnON7UufudL+CNeRrD+wpYanswlm8NpudMdrt3CHoLMQMxJhHRg==
 
 chartjs-plugin-annotation@^1.4.0:
   version "1.4.0"
@@ -306,11 +306,6 @@ csstype@^2.6.8:
   version "2.6.20"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.20.tgz#9229c65ea0b260cf4d3d997cb06288e36a8d6dda"
   integrity sha512-/WwNkdXfckNgw6S5R125rrW8ez139lBHWouiBvX8dfMFtcn6V81REDqnH7+CRpRipfYlyU1CmOnOxrmGcFOjeA==
-
-csstype@latest:
-  version "3.0.11"
-  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.11.tgz#d66700c5eacfac1940deb4e3ee5642792d85cd33"
-  integrity sha512-sa6P2wJ+CAbgyy4KFssIb/JNMLxFvKF1pCYCSXS8ZMuqZnMsrxqI2E5sPyoTpxoPU/gVZMzr2zjOfg8GIZOMsw==
 
 doctypes@^1.1.0:
   version "1.1.0"
@@ -594,11 +589,6 @@ jstransformer@1.0.0:
   dependencies:
     is-promise "^2.0.0"
     promise "^7.0.1"
-
-lodash-es@latest:
-  version "4.17.21"
-  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
-  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
 lru-cache@^6.0.0:
   version "6.0.0"
@@ -975,15 +965,10 @@ vscode-vue-languageservice@0.29.8:
     vscode-pug-languageservice "0.29.8"
     vscode-typescript-languageservice "0.29.8"
 
-vue-chart-3@^3.1.4:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/vue-chart-3/-/vue-chart-3-3.1.4.tgz#77bf7fc55987b686ca67e4725faae7d2501d6daf"
-  integrity sha512-6ynam+Lky6iUCC1Kr140HtnzrCwyy5CKuprWgDFiJCr5pzZ20L4ZE2fyz3z5zTSg+QUnsrujtZGw7TJKvseKoQ==
-  dependencies:
-    "@vue/runtime-core" latest
-    "@vue/runtime-dom" latest
-    csstype latest
-    lodash-es latest
+vue-chartjs@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-4.1.1.tgz#b1ffc2845e09d14cb5255305b11bd3e8df8058ab"
+  integrity sha512-rKIQ3jPrjhwxjKdNJppnYxRuBSrx4QeM3nNHsfIxEqjX6QS4Jq6e6vnZBxh2MDpURDC2uvuI2N0eIt1cWXbBVA==
 
 vue-demi@*:
   version "0.12.4"
