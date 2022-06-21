@@ -2,7 +2,8 @@
 // @ts-nocheck
 import { computed } from 'vue';
 import { Bar } from 'vue-chartjs';
-
+import type {  ChartOptions, ChartData } from 'chart.js';
+//import type { TChartData } from 'vue-chartjs/dist/types';
 import { RoundNum } from '../use/calcChart'
 import { isDesktop } from '../use/detectDevice'
 
@@ -24,7 +25,7 @@ function bgColor() {
   return color
 }
 
-const chartData = computed(() => ({
+const chartData = computed(():ChartData<'bar'> => ({
     labels: [''],//必ず用意しないといけない
     datasets: [
     {
@@ -35,7 +36,7 @@ const chartData = computed(() => ({
     ],
 }))
 
-const options = computed(() => ({
+const options = computed(():ChartOptions => ({
     indexAxis: 'y',
     plugins: {
       legend: {
